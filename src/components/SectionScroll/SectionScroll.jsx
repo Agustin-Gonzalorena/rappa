@@ -2,17 +2,13 @@
 import styles from "./SectionScroll.module.css";
 import { useEffect, useRef, useState } from "react";
 const SectionScroll = ({ data }) => {
-  const sectionRefs = useRef([]);
+  const sectionRefs = data.map(() => useRef(null));
   const [sectNumber, setSectNumber] = useState(1);
-
-  useEffect(() => {
-    sectionRefs.current = sectionRefs.current.slice(0, data.length);
-  }, [data]);
 
   useEffect(() => {
     const handleScroll = () => {
       let sumDistance = 200;
-      const sectionRects = sectionRefs.current.map((ref) =>
+      const sectionRects = sectionRefs.map((ref) =>
         ref.current.getBoundingClientRect()
       );
 
@@ -28,7 +24,7 @@ const SectionScroll = ({ data }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [sectionRefs]);
 
   return (
     <>
@@ -57,7 +53,6 @@ const SectionScroll = ({ data }) => {
         </div>
         <div className={styles.boxRight}>
           {data.map((item, index) => {
-            sectionRefs.current[index] = useRef(null);
             return (
               <div
                 key={item.id}
@@ -67,7 +62,7 @@ const SectionScroll = ({ data }) => {
                 className={styles.boxText}
               >
                 <h3>{item.title}</h3>
-                <div ref={sectionRefs.current[index]}>{item.text}</div>
+                <div ref={sectionRefs[index]}>{item.text}</div>
               </div>
             );
           })}
