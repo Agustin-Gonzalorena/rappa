@@ -1,0 +1,143 @@
+.contain {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.boxTitle {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  position: relative;
+}
+.title {
+  width: 50%;
+  font-size: 50px;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 50px;
+  position: absolute;
+  top: 20px;
+  box-sizing: border-box;
+}
+.boxRight {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: 30px;
+}
+.boxImg {
+  height: 100%;
+  width: 40vw;
+  max-width: 600px;
+  position: relative;
+  padding-top: 30px;
+  box-sizing: border-box;
+}
+.imgContain {
+  height: 400px;
+  width: 100%;
+  position: sticky;
+  top: 20vh;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px black;
+}
+.images {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+}
+.boxText {
+  width: 80%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 50px;
+  box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
+}
+.boxText div a {
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+.boxText div a:hover {
+  text-decoration: underline;
+}
+.boxRight h3 {
+  margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .contain {
+    display: none;
+  }
+  /* .contain {
+    flex-direction: column;
+    align-items: center;
+  }
+  .boxTitle {
+    width: 100%;
+    justify-content: center;
+  }
+  .title {
+    width: 100%;
+    font-size: 40px;
+    padding-left: 0;
+    text-align: center;
+    position: relative;
+    top: 0;
+  }
+  .boxRight {
+    width: 100%;
+    padding-top: 0;
+  }
+  .left {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+  }
+  .boxImg {
+    width: 100%;
+    padding-top: 0;
+  }
+  .imgContain {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+    top: 20px;
+  }
+  .images {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 4px 10px black;
+    position: sticky;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: all 0.2s ease-in;
+  }
+  .boxText {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 50px;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in;
+  }
+  .boxRight h3 {
+    margin: 0;
+  } */
+}
