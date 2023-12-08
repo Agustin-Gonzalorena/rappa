@@ -1,38 +1,26 @@
-"use client";
 import styles from "./SectionScroll.module.css";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 const SectionScroll = ({ data }) => {
   const [sectNumber, setSectNumber] = useState(1);
-  const section1 = useRef(null);
-  const section2 = useRef(null);
-  const section3 = useRef(null);
+  const [refs, setRefs] = useState(data.map(() => useRef(null)));
+  const handleScroll = () => {
+    let sumDistance = 200;
+
+    // Calculamos la sección visible en función de las referencias dinámicas
+    for (let i = 0; i < data.length; i++) {
+      const sectionRect = refs[i].current.getBoundingClientRect();
+
+      if (
+        sectionRect.top - sumDistance >= 0 &&
+        sectionRect.bottom <= window.innerHeight
+      ) {
+        setSectNumber(i + 1);
+        break; // Una vez que encontramos la sección visible, salimos del bucle
+      }
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      let sumDistance = 200;
-      if (section1.current && section2.current && section3.current) {
-        const section1Rect = section1.current.getBoundingClientRect();
-        const section2Rect = section2.current.getBoundingClientRect();
-        const section3Rect = section3.current.getBoundingClientRect();
-        if (
-          section1Rect.top - sumDistance >= 0 &&
-          section1Rect.bottom <= window.innerHeight
-        ) {
-          setSectNumber(1);
-        } else if (
-          section2Rect.top - sumDistance >= 0 &&
-          section2Rect.bottom <= window.innerHeight
-        ) {
-          setSectNumber(2);
-        } else if (
-          section3Rect.top - sumDistance >= 0 &&
-          section3Rect.bottom <= window.innerHeight
-        ) {
-          setSectNumber(3);
-        }
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -48,49 +36,31 @@ const SectionScroll = ({ data }) => {
         <div className={styles.left}>
           <div className={styles.boxImg}>
             <div className={styles.imgContain}>
-              <img
-                src={data[0].img}
-                alt={data[0].title}
-                className={styles.images}
-                style={sectNumber == 1 ? { opacity: 1 } : { opacity: 0 }}
-              />
-              <img
-                src={data[1].img}
-                alt={data[1].title}
-                className={styles.images}
-                style={sectNumber == 2 ? { opacity: 1 } : { opacity: 0 }}
-              />
-              <img
-                src={data[2].img}
-                alt={data[2].title}
-                className={styles.images}
-                style={sectNumber == 3 ? { opacity: 1 } : { opacity: 0 }}
-              />
+              {data.map((item) => (
+                <img
+                  key={item.id}
+                  src={item.img}
+                  alt={item.title}
+                  className={styles.images}
+                  style={
+                    sectNumber == item.id ? { opacity: 1 } : { opacity: 0 }
+                  }
+                />
+              ))}
             </div>
           </div>
         </div>
         <div className={styles.boxRight}>
-          <div
-            style={sectNumber == 1 ? { opacity: 1 } : { opacity: 0 }}
-            className={styles.boxText}
-          >
-            <h3>{data[0].title}</h3>
-            <div ref={section1}>{data[0].text}</div>
-          </div>
-          <div
-            style={sectNumber == 2 ? { opacity: 1 } : { opacity: 0 }}
-            className={styles.boxText}
-          >
-            <h3>{data[1].title}</h3>
-            <div ref={section2}>{data[1].text}</div>
-          </div>
-          <div
-            style={sectNumber == 3 ? { opacity: 1 } : { opacity: 0 }}
-            className={styles.boxText}
-          >
-            <h3>{data[2].title}</h3>
-            <div ref={section3}>{data[2].text}</div>
-          </div>
+          {data.map((item, index) => (
+            <div
+              key={item.id}
+              style={sectNumber == item.id ? { opacity: 1 } : { opacity: 0 }}
+              className={styles.boxText}
+            >
+              <h3>{item.title}</h3>
+              <div ref={refs[index]}>{item.text}</div>
+            </div>
+          ))}
         </div>
       </section>
     </>
