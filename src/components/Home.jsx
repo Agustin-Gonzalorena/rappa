@@ -43,6 +43,19 @@ const Home = () => {
         </p>
       ),
     },
+    {
+      id: 4,
+      img: "https://www.terravolcano.com/wp-content/uploads/2023/09/Copia-de-IMG_3425.jpg",
+      title: "Trekking to the volcano Villarrica",
+      text: (
+        <p>
+          We invite you to an exciting trekking towards the imposing volcano
+          Villarrica organized by our friend page . Prepare for an unforgettable
+          adventure as we climb steep trails and take in stunning panoramic
+          views.
+        </p>
+      ),
+    },
   ];
   return (
     <>

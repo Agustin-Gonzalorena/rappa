@@ -1,14 +1,15 @@
 import styles from "./SectionScroll.module.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 const SectionScroll = ({ data }) => {
   const [sectNumber, setSectNumber] = useState(1);
-  const [refs, setRefs] = useState(data.map(() => useRef(null)));
-  const handleScroll = () => {
+  const refs = useRef(data.map(() => React.createRef()));
+
+  const handleScroll = useCallback(() => {
     let sumDistance = 200;
 
     // Calculamos la sección visible en función de las referencias dinámicas
     for (let i = 0; i < data.length; i++) {
-      const sectionRect = refs[i].current.getBoundingClientRect();
+      const sectionRect = refs.current[i].current.getBoundingClientRect();
 
       if (
         sectionRect.top - sumDistance >= 0 &&
@@ -18,7 +19,7 @@ const SectionScroll = ({ data }) => {
         break; // Una vez que encontramos la sección visible, salimos del bucle
       }
     }
-  };
+  }, [data]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -26,7 +27,7 @@ const SectionScroll = ({ data }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
   return (
     <>
       <div className={styles.boxTitle}>
@@ -58,7 +59,7 @@ const SectionScroll = ({ data }) => {
               className={styles.boxText}
             >
               <h3>{item.title}</h3>
-              <div ref={refs[index]}>{item.text}</div>
+              <div ref={refs.current[index]}>{item.text}</div>
             </div>
           ))}
         </div>
