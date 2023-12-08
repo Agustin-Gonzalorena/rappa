@@ -45,9 +45,11 @@ const Home = () => {
     },
   ];
   return (
-    <div className={styles.fondo}>
+    <>
+      <div className={styles.fondo}></div>
       <SectionScroll data={sectionScroolAnimation} />
-    </div>
+      <div className={styles.fondo}></div>
+    </>
   );
 };
 
